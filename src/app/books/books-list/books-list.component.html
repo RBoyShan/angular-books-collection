@@ -1,0 +1,30 @@
+
+<div *ngIf="books$; else noBooks">
+  <div *ngIf="photosUrls?.size; else loading">
+    <h1 class="title">BOOK LIST</h1>
+    <mat-grid-list cols="4" rowHeight="400px" class="list-content ">
+      <mat-grid-tile 
+        *ngFor="let book of books$ | async; trackBy: trackByFn"
+        class="list-item">
+          <div class="photo"
+            matTooltip="{{book.name + '\t ' + book.countPages}} pages"
+            [matTooltipShowDelay]="600"
+            [matTooltipHideDelay]="600"
+            [matTooltipPosition]="position"
+          >
+            <img class="upload-image" src="{{photosUrls.get(book.id!.toString())}}">
+            <a class="book-link" routerLink="/detail-book/{{book.id}}"></a>
+          </div>   
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <ng-template #loading>
+    <mat-spinner class="center"></mat-spinner>
+  </ng-template>
+</div>
+<ng-template #noBooks class="center">
+  <h1 class="title">Sorry :(</h1>
+  <h2 class="subtitle">There are no books in this category yet...</h2>
+</ng-template>
+
+

@@ -1,0 +1,79 @@
+      <!-- Main content -->
+    <div *ngIf="currentUser; else loading">
+      <h1 class="h1" class="title">User Profile</h1>
+      <main role="main" >
+          <!-- Show user data when logged in -->
+          <div class="media center" *ngIf="currentUser">
+                <div class="photo">
+                  <img id="upload-image" src="{{(currentUser.photoURL) ? currentUser.photoURL : 'https://nd.net/wp-content/uploads/2016/04/profile-dummy-250x250.png'}}"
+                    alt="{{currentUser.displayName}}">
+                  <input id="file-input" type="file" (change)="changeUserPhoto($event)" accept="'.png,.jpg,.gif'">
+                </div>
+                <div class="media-body">
+                  <h1>Hello: <strong>{{(currentUser.displayName) ? currentUser.displayName : 'User'}}</strong></h1>
+                  <p>User ID: <strong>{{currentUser.uid}}</strong></p>
+                  <p>Email: <strong>{{currentUser.email}}</strong></p>
+                  <p>Email Verified: <strong>{{currentUser.emailVerified}}</strong></p>
+                </div>
+          </div>
+      </main>
+        <div class="bookmark-table" *ngIf="currentUser.bookmarks.length > 0">
+          <table mat-table [dataSource]="dataSource">
+        
+            <!-- Book Name Column -->
+            <ng-container matColumnDef="bookName">
+              <th mat-header-cell *matHeaderCellDef> Book Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.bookName}} </td>
+            </ng-container>
+        
+            <!-- Book ID Column -->
+            <ng-container matColumnDef="bookId">
+              <th mat-header-cell *matHeaderCellDef> Book ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.bookId}} </td>
+            </ng-container>
+        
+            <!-- Page Column -->
+            <ng-container matColumnDef="page">
+              <th mat-header-cell *matHeaderCellDef> Page </th>
+              <td mat-cell *matCellDef="let element"> {{element.page}} </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description </th>
+              <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <!-- Link Column -->
+            <ng-container matColumnDef="link">
+              <th mat-header-cell *matHeaderCellDef> Link </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button aria-label="Example icon button with a open in new tab icon"
+                        routerLink="/detail-book/{{element.bookId}}/content/{{true}}/{{element.page}}">
+                  <mat-icon>open_in_new</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Delete Column -->
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef> Delete </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button aria-label="Example icon button with a open in new tab icon" (click)="deleteBookMark(element)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="collumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: collumns;"></tr>
+          </table>
+        
+          <mat-paginator #scheduledBookMarksPaginator [pageSizeOptions]="[5, 10, 20]" ></mat-paginator>
+        </div>
+    </div>
+
+    <ng-template #loading>
+      <mat-spinner class="center"></mat-spinner>
+    </ng-template>
+    

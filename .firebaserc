@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "programming-books-collection": {
+      "hosting": {
+        "programming-books-collection": [
+          "programming-books-collection"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.title {
+    margin-top: 40px;
+    font-size: 60px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 100;
+    color: #3d5257;
+}
+table {
+    width: 100%;
+}
+.photo {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin: 50px;
+    margin-top: 50px;
+} 
+.photo img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+} 
+.photo input {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.media {
+    margin-top: 60px;
+    display: flex;
+    border-radius: 30px;
+    background:#171717;
+    white-space: nowrap;
+}
+.media-body {
+    margin-top: 100px;
+    margin-right: 50px;
+}
+.bookmark-table {
+    margin: 50px;
+    margin-top: 450px;
+}

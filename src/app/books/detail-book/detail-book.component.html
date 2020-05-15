@@ -1,0 +1,88 @@
+<div *ngIf="!content; else contentText">
+    <div *ngIf="currentBook && imgSrc; else loading">
+        <h1 class="title">{{currentBook.name}}</h1>
+        <div class="detail-container">
+            <div id="info-block">
+                <div id="author-info">{{currentBook.author}}</div>
+                <div id="description-info">{{currentBook.description}}</div>
+                <div class="center-block">
+                    <button mat-raised-button *showIfAdmin="true" class="add-hover" routerLink="/edit-book/{{currentBook.id}}">Edit Book Data</button>
+                    <button mat-raised-button class="add-hover" routerLink="/detail-book/{{currentBook.id}}/content/{{true}}">Read</button>
+                </div>
+            </div>
+            <div *ngIf="imgSrc != null" id="icon-block">
+                <img src="{{imgSrc}}">
+            </div>
+        </div>
+    </div>
+    <ng-template #loading>
+        <mat-spinner class="center"></mat-spinner>
+    </ng-template>
+    
+</div>
+
+<ng-template #contentText>
+    <mat-drawer-container class="mat-drawer-container" *ngIf="bookView; else loadingView">
+        <mat-drawer mode="side" opened tabindex="-1" class="mat-drawer sidenav" style="transform: none; visibility: visible;">
+            <ng-container *showIfLoggedIn="true">
+                <button mat-raised-button id="add-bookmark" (click)="openDialog()">
+                    Add bookmark 
+                    <mat-icon matSuffix>bookmark</mat-icon>
+                </button>
+            </ng-container>
+            
+            <mat-slide-toggle class="slide" [(ngModel)]="bookView.rendering" [checked]="bookView.rendering" color="primary">Render text</mat-slide-toggle>
+            <br/>
+            <mat-slide-toggle class="slide" [(ngModel)]="bookView.allPages" [checked]="bookView.allPages" color="primary">Show all pages</mat-slide-toggle>
+            <br/>
+            <mat-slide-toggle class="slide" [(ngModel)]="bookView.autosize" [checked]="bookView.autosize" color="primary">Autoresize</mat-slide-toggle>
+            <br/>
+            <span class="btn-nav-block">
+                <button mat-icon-button (click)="prev()"><mat-icon>undo</mat-icon></button>
+                <mat-form-field>
+                    <mat-label>Page</mat-label>
+                    <input matInput type="number" #inputPage 
+                        [(ngModel)]="bookView.page" 
+                    >
+                </mat-form-field>
+                <button mat-icon-button (click)="next()"><mat-icon>redo</mat-icon></button>
+
+                <button mat-icon-button (click)="zoom(-0.1)"><mat-icon>zoom_out</mat-icon></button>
+                <mat-form-field>
+                    <mat-label>Zoom</mat-label>
+                    <input matInput type="number" #inputZoom  [(ngModel)]="bookView.zoom" [value]="bookView.zoom">
+                </mat-form-field>
+                <button mat-icon-button (click)="zoom(0.1)"><mat-icon>zoom_in</mat-icon></button>
+            </span>
+        </mat-drawer>
+        
+        <mat-drawer-content class="max-height">
+            <div id="proggres" *ngIf="!isLoaded && bookView.page && progressData">
+                <p>Please wait book is loading...</p>
+                <mat-progress-bar mode="determinate"
+                    [value]="getInt(progressData.loaded / progressData.total * 100)"
+                ></mat-progress-bar>
+                <p>{{ getInt(progressData.loaded / progressData.total * 100) }}%</p>
+            </div>
+            <pdf-viewer 
+                    [src]="bookView.source" 
+                    [render-text]="bookView.rendering"
+                    [render-text-mode]="2"
+                    [page]="bookView.page"
+                    [show-all]="bookView.allPages"
+                    [original-size]="!bookView.autosize"
+                    [autoresize]="bookView.autosize"
+                    [zoom]="bookView.zoom"
+                    [stick-to-page]="true"
+                    (after-load-complete)="afterLoadComplete($event)"
+                    (on-progress)="onProgress($event)"
+                    (pageChange)="pageChange($event)"
+                    style="display: block;"
+            >
+            </pdf-viewer>
+        </mat-drawer-content>
+    </mat-drawer-container>
+    <ng-template #loadingView>
+        <mat-spinner class="center"></mat-spinner>
+    </ng-template>
+</ng-template>

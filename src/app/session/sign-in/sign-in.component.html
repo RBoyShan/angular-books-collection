@@ -1,0 +1,88 @@
+<div class="auth-block">
+      <div *ngIf="!isForgotPassword; else reset">
+      <form  [formGroup]="loginForm">
+        <h3>Sign In</h3>
+
+        <mat-form-field class="full-width no-weight" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Ex. pat@example.com" required>
+          <mat-icon matSuffix>assignment_ind</mat-icon>
+          <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email').hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+  
+        <br>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="password" required >
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password').hasError('password') && !loginForm.get('password').hasError('required')">
+            Password too short!
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <button class="full-width no-weight" type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login(loginForm.value)">Sign In</button>
+      </form>
+        <br/>
+          <span id="or">Or</span>
+
+        <br/>
+        <!-- Calling GoogleAuth Api from AuthService -->
+        
+        <div>
+          <button class="full-width no-weight" mat-raised-button color="primary" (click)="loginGoogle()">
+            <img src="https://img.icons8.com/color/25/000000/google-logo.png"/>
+            Log in with Google
+          </button>
+        </div>
+
+          <br/>
+        
+        <div>
+          <button class="full-width" mat-raised-button (click)="checkForgot()">
+            Forgot password?
+          </button>
+        </div>
+      
+      </div>
+      
+      <ng-template #reset>
+        <div class="forgot-block">
+            <h3>Reset Password</h3>
+
+            <p class="text-center">Please enter your email address to request a password reset.</p>
+          <form [formGroup]="resetForm">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" placeholder="Ex. pat@example.com" required>
+              <mat-error *ngIf="resetForm.get('email').hasError('email') && !resetForm.get('email').hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="resetForm.get('email').hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            
+            <br/>
+            
+            <button type="submit" mat-raised-button color="primary" [disabled]="!resetForm.valid" (click)="resetPassword(resetForm)">Reset Password</button>
+          </form>
+        </div>
+
+        <div class="redirect-to-login">
+            <span>Go back to  <a  (click)="checkForgot()">Log In</a> ?</span>
+        </div>
+      </ng-template>
+</div>

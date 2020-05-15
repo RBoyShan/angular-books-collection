@@ -1,0 +1,80 @@
+.home-page {
+    height: 100%;
+    width: 100%;
+    background: url("https://miro.medium.com/max/14720/0*E0oXyDylhIc78F2q") 100% 100% no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.home-content {
+    height: 100%;
+    width: 100%;
+    background-color: #000819;
+    opacity: .8;
+}
+.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 65px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    color: #3d5257;
+    line-height: 65px;
+}
+.subtitle {
+    margin: 50px 0;
+    font-size: 60px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 100;
+    color: #3d5257;
+}
+.start-btn {
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transform: translate3d(0, 0, 0);
+    transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.start-btn:hover {
+    background-color: #3d5257;
+}
+.center-btn {
+    width: 150px;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.style-btn {
+    background-color: #262626;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 200;
+}

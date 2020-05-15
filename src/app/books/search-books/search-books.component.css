@@ -1,0 +1,12 @@
+.search-form {
+  margin-top: 20px;
+  min-width: 250px;
+  max-width: 250px;
+  width: 100%;
+}
+.full-width {
+  width: 100%;
+}
+#search-component {
+  margin-top: 50px;
+}

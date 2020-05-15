@@ -1,0 +1,26 @@
+.auth-block{
+    display: flex;
+    color: mintcream;
+    font-size: 15px;
+    border-radius: 30px;
+    padding: 30px  30px;
+    background:#171717;
+    position: fixed; top: 55%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-weight: normal;
+}
+.full-width {
+    width: 100%;
+}
+.redirect {
+    cursor: pointer;
+    color: #4876ff;
+}
+hr {
+    margin: 20px;
+}
+.google-auth {
+    margin-top: 40%;
+}

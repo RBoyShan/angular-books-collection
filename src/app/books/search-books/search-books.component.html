@@ -1,0 +1,17 @@
+<span id="search-component">  
+  <form [style.fontSize.px]="14" class="search-form">
+    <mat-form-field class="full-width">
+      <input matInput type="search" placeholder="Search book" class="search-input"
+                  id="search" (input)="searchBooks(searchBox.value)" 
+                  [formControl]="searchBox"
+                  [matAutocomplete]="auto"
+                >
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let book of books$ | async" [value]="book.name" routerLink="/detail-book/{{book.id}}" (click)="reset()">
+          {{book.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</span>

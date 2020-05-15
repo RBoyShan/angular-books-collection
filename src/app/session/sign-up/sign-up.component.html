@@ -1,0 +1,100 @@
+<div class="auth-block">
+    <div>
+      <h3>Sign Up</h3>
+      <mat-vertical-stepper linear #stepper>
+        <mat-step [stepControl]="usernameForm">
+          <form [formGroup]="usernameForm">
+            <ng-template matStepLabel>Fill out your Username</ng-template>
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Username" formControlName="usernameCtrl" #username [errorStateMatcher]="matcher" required>
+              <mat-error *ngIf="usernameForm.get('usernameCtrl').hasError('required')">
+                Username is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="usernameForm.errors?.minlength && !usernameForm.get('usernameCtrl').hasError('required')">
+                Username must be at least 4 characters long.
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="emailForm" >
+          <form [formGroup]="emailForm">
+            <ng-template matStepLabel>Fill out your Email</ng-template>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Ex. pat@example.com" formControlName="emailCtrl" #email [errorStateMatcher]="matcher" required>
+              <mat-error *ngIf="emailForm.get('emailCtrl').hasError('email') && !emailForm.get('emailCtrl').hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailForm.get('emailCtrl').hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="passwordForm" >
+          <form [formGroup]="passwordForm">
+            <ng-template matStepLabel>Fill out your Password</ng-template>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordCtrl" placeholder="password" required >
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="passwordForm.errors?.minlenght">
+                Password must be at least 6 characters long.
+              </mat-error>
+            </mat-form-field>
+              <br>
+            <mat-form-field >
+              <mat-label>Confirm password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmCtrl" placeholder="password" #password [errorStateMatcher]="matcher" required>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="passwordForm.hasError('passwordDoNotMatch')">
+                Password mismatch
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Last step</ng-template>
+          <p>Regestration completion</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="signUp(email.value, password.value, username.value)">Sign Up</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </div>
+    <hr>
+    <div class="google-auth">
+      <!-- Continue with Google -->
+      <div>
+        <button class="full-width" mat-raised-button color="primary" (click)="signInGoogle()">
+          <img src="https://img.icons8.com/color/25/000000/google-logo.png"/>
+          Log in with Google
+        </button>
+      </div>
+
+      <div>
+        <span>Already have an account? <span class="redirect" routerLink="/sign-in">Log In</span></span>
+      </div>
+    </div>
+        
+</div>

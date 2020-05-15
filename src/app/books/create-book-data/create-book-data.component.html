@@ -1,0 +1,117 @@
+<h1 class="title">
+  Create a new Book
+</h1>
+<div class="container">
+  <div class="create-container">
+    <form (ngSubmit)="addBook(postForm.value)" [formGroup]="postForm">
+             
+      <h2>Add a new book to the collection.</h2>
+      <hr/> 
+
+      <mat-form-field  class="full-width">
+        <mat-label>Book name</mat-label>
+        <input matInput placeholder="name..." formControlName="name" required #bookName>
+        <mat-error *ngIf="postForm.hasError('name')">
+          Book name must be at least 5 characters long.
+        </mat-error>
+        <mat-error *ngIf="!postForm.hasError('requared')">
+          Book name is required.
+        </mat-error>
+      </mat-form-field>
+      
+      <br>
+      
+      <mat-form-field  class="full-width">
+        <mat-label>Author</mat-label>
+        <input matInput placeholder="B.Straustrup" formControlName="author" required #author> 
+        <mat-error *ngIf="postForm.hasError('author')">
+          Author must be at least 5 characters long.
+        </mat-error>
+        <mat-error *ngIf="!postForm.hasError('requared')">
+          Author is required.
+        </mat-error>
+      </mat-form-field>
+      
+      <br>
+
+      <mat-form-field  class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  placeholder="description..." 
+                  formControlName="description"
+                  required
+                  #description>
+        </textarea>
+        <mat-error *ngIf="postForm.hasError('description')">
+          Description must be at least 10 characters long.
+        </mat-error>
+        <mat-error *ngIf="!postForm.hasError('requared')">
+          Description is required.
+        </mat-error>
+      </mat-form-field>
+      
+      <br>
+
+      <mat-form-field  class="full-width">
+        <mat-label>Categories</mat-label>
+        <mat-select formControlName="category" multiple #category>
+          <mat-option  *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <br>
+
+      <mat-form-field  class="full-width">
+        <ngx-mat-file-input formControlName="content" valuePlaceholder="Select content file" (change)='addContent($event)' [accept]="'.pdf'" required></ngx-mat-file-input>
+        <mat-icon matSuffix>perm_media</mat-icon>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field  class="full-width">
+        <ngx-mat-file-input formControlName="icon" valuePlaceholder="Select image file" (change)='addIcon($event)' [accept]="'.png,.jpg'" required #icon></ngx-mat-file-input>
+        <mat-icon matSuffix>perm_media</mat-icon>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field  class="full-width">
+        <mat-label>Count pages</mat-label>
+        <input matInput type="number" formControlName="countPages" required #pages>
+      </mat-form-field>
+
+      
+      <br>
+      <button mat-raised-button color="primary" [disabled]="!postForm.valid" class="full-width btn-ok"><mat-icon>add</mat-icon></button>
+    </form>
+
+  </div> 
+  
+  <div class="book-view">
+    <div class="full-width">
+      <h2>Preview</h2>
+      <hr>
+    </div>
+    <p id="name-book-view">{{(bookName.value)? bookName.value : "Book Name..."}}</p>
+    <div class="book-image book-image-1x2">
+      <img 
+        src="{{(photoUrl)? photoUrl : 'https://jewelleryair.com/upload/iblock/dad/dad83a4c79c9e42b2ac6adaac1a5880f.jpg'}}"
+      >
+    </div>
+    <div class="book-info-block">
+      <div id="book-author-view">{{(author.value)? author.value : "Author..."}}</div>
+      <br/>
+      <div id="description-book-view"
+        [ngClass]="{'class': (description.value)}"
+      >{{(description.value)? description.value : "Description..."}}</div>
+      <br/>
+      <div id="category-view">{{(category.value)? category.value : "Category..."}}</div>
+      <div id="count-pages-view">{{(pages.value)? pages.value : "0"}} pages</div>
+    </div>
+    
+  </div>
+</div>
